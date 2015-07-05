@@ -131,9 +131,13 @@ public class SerialReader implements SerialPortEventListener {
 				inputLine=input.readLine();
 				System.out.println(inputLine);
                                 StringTokenizer stringTokenizer = new StringTokenizer(inputLine,",");
-                           
-                                statement.setString(1,inputLine);
-                                statement.setString(2,inputLine);
+                                
+                                String humidity = stringTokenizer.nextToken();
+                                System.out.println(humidity);
+                                statement.setString(1,humidity);                                
+                                String temperature = stringTokenizer.nextToken();
+                                System.out.println(temperature);
+                                statement.setString(2,temperature);
                                 statement.executeUpdate();
                                 
                                 
