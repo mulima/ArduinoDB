@@ -56,7 +56,7 @@ public class SerialReader implements SerialPortEventListener {
                 
 
                 //prepare query that will read serial data and store in database
-                String query = "INSERT into arduino_sensors(arduinoID,temperature,humidity) VALUES(?,?,?)";
+                String query = "INSERT into arduino_sensors(arduinoID,humidity,temperature) VALUES(?,?,?)";
                 try{
                 Connection connection = new DatabaseConnection().getConnection();
                 statement = connection.prepareStatement(query);
