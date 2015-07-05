@@ -56,7 +56,7 @@ public class SerialReader implements SerialPortEventListener {
                 
 
                 //prepare query that will read serial data and store in database
-                String query = "INSERT into arduino_sensors(temp,humidity) VALUES(?,?)";
+                String query = "INSERT into arduino_sensors(arduinoID,temperature,humidity) VALUES(?,?,?)";
                 try{
                 Connection connection = new DatabaseConnection().getConnection();
                 statement = connection.prepareStatement(query);
@@ -130,14 +130,20 @@ public class SerialReader implements SerialPortEventListener {
                                 if(input.ready()){
 				inputLine=input.readLine();
 				System.out.println(inputLine);
+                                
+                                //StringTokenizer to read an entire line of tata. It is expected that successive
+                                //reads are in successive lines. 
                                 StringTokenizer stringTokenizer = new StringTokenizer(inputLine,",");
                                 
+                                String arduinoID = stringTokenizer.nextToken();
+                                statement.setString(1,arduinoID);
+                                System.out.println(arduinoID);
                                 String humidity = stringTokenizer.nextToken();
                                 System.out.println(humidity);
-                                statement.setString(1,humidity);                                
+                                statement.setString(2,humidity);                                
                                 String temperature = stringTokenizer.nextToken();
                                 System.out.println(temperature);
-                                statement.setString(2,temperature);
+                                statement.setString(3,temperature);
                                 statement.executeUpdate();
                                 
                                 
